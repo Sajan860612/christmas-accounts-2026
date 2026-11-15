@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>f
 <html>
 <head>
@@ -1648,7 +1647,8 @@ async function addFund() {
    FUND HISTORY
 ========================================= */
 
-function openFundHistory() {
+
+async function openFundHistory() {
 
   const container =
     document.getElementById("fundHistoryList");
@@ -1656,27 +1656,26 @@ function openFundHistory() {
   container.innerHTML =
     '<div class="empty">Loading fund history...</div>';
 
+  try {
 
-  google.script.run
+    const history =
+      await callAppsScript("getFundHistory");
 
-    .withSuccessHandler(function(history) {
+    displayFundHistory(history);
 
-      displayFundHistory(history);
+  } catch (error) {
 
-    })
+    console.error(error);
 
-    .withFailureHandler(function(error) {
+    container.innerHTML =
+      '<div class="empty">Unable to load fund history.</div>';
 
-      console.error(error);
+    showToast(error.message);
 
-      container.innerHTML =
-        '<div class="empty">Unable to load fund history.</div>';
-
-    })
-
-    .getFundHistory();
+  }
 
 }
+
 
 
 /* =========================================
