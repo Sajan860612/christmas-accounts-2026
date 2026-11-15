@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>f
-<html>f
+<html>
 <head>
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -1500,58 +1500,45 @@ function displayExpenses(expenses) {
    CHANGE PAYMENT SOURCE
 ========================================= */
 
-function changePaymentSource(expenseId, newSource) {
+
+async function changePaymentSource(expenseId, newSource) {
 
   if (!expenseId) return;
 
   showToast("Updating payment source...");
 
+  try {
 
-  google.script.run
-
-    .withSuccessHandler(function(result) {
-
-      if (result && result.success) {
-
-        showToast("Payment source updated successfully.");
-
-        // Refresh dashboard totals.
-        loadDashboard();
-
-        // Fetch expenses again so both the
-        // selected source and settlement status
-        // reflect the latest backend data.
-        openExpenseDetails();
-
-      } else {
-
-        showToast("Unable to change payment source.");
-
+    await callAppsScript(
+      "changeExpensePaymentSource",
+      {
+        expenseId: expenseId,
+        newPaymentSource: newSource
       }
-
-    })
-
-    .withFailureHandler(function(error) {
-
-      console.error(error);
-
-      showToast(error.message || "Unable to update payment source.");
-
-    })
-
-    .changeExpensePaymentSource(
-      expenseId,
-      newSource
     );
 
-}
+    showToast("Payment source updated successfully.");
 
+    await Promise.all([
+      loadDashboard(),
+      openExpenseDetails()
+    ]);
+
+  } catch (error) {
+
+    console.error(error);
+    showToast(error.message);
+
+  }
+
+}
 
 /* =========================================
    DELETE EXPENSE
 ========================================= */
 
-function deleteExpense(expenseId) {
+
+async function deleteExpense(expenseId) {
 
   if (!confirm(
     "Are you sure you want to completely delete this expense?"
@@ -1561,44 +1548,37 @@ function deleteExpense(expenseId) {
 
   showToast("Deleting expense...");
 
+  try {
 
-  google.script.run
+    await callAppsScript(
+      "deleteExpense",
+      { expenseId: expenseId }
+    );
 
-    .withSuccessHandler(function(result) {
+    showToast("Expense deleted successfully.");
 
-      if (result && result.success) {
+    await Promise.all([
+      loadDashboard(),
+      openExpenseDetails()
+    ]);
 
-        showToast("Expense deleted successfully.");
+  } catch (error) {
 
-        loadDashboard();
-        openExpenseDetails();
+    console.error(error);
+    showToast(error.message);
 
-      } else {
-
-        showToast("Unable to delete expense.");
-
-      }
-
-    })
-
-    .withFailureHandler(function(error) {
-
-      console.error(error);
-
-      showToast(error.message || "Unable to delete expense.");
-
-    })
-
-    .deleteExpense(expenseId);
+  }
 
 }
+
 
 
 /* =========================================
    ADD FUND
 ========================================= */
 
-function addFund() {
+
+async function addFund() {
 
   const amount =
     parseFloat(document.getElementById("fundAmount").value);
@@ -1608,7 +1588,6 @@ function addFund() {
 
   const date =
     document.getElementById("fundDate").value;
-
 
   if (!Number.isFinite(amount) || amount <= 0) {
     showToast("Please enter a valid amount.");
@@ -1625,13 +1604,11 @@ function addFund() {
     return;
   }
 
-
   const fundEntry = {
     amount: amount,
     reason: reason,
     date: date
   };
-
 
   const button =
     document.getElementById("addFundButton");
@@ -1639,46 +1616,32 @@ function addFund() {
   button.disabled = true;
   button.textContent = "ADDING...";
 
+  try {
 
-  google.script.run
+    await callAppsScript("addFund", fundEntry);
 
-    .withSuccessHandler(function(result) {
+    document.getElementById("fundAmount").value = "";
+    document.getElementById("fundReason").value = "";
 
-      button.disabled = false;
-      button.textContent = "ADD TO CHRISTMAS FUND";
+    showToast("Money added to Christmas Fund.");
 
-      if (result && result.success) {
+    await loadDashboard();
+    await openFundHistory();
 
-        document.getElementById("fundAmount").value = "";
-        document.getElementById("fundReason").value = "";
+  } catch (error) {
 
-        showToast("Money added to Christmas Fund.");
+    console.error(error);
+    showToast(error.message);
 
-        loadDashboard();
-        openFundHistory();
+  } finally {
 
-      } else {
+    button.disabled = false;
+    button.textContent = "ADD TO CHRISTMAS FUND";
 
-        showToast("Unable to add money to fund.");
-
-      }
-
-    })
-
-    .withFailureHandler(function(error) {
-
-      button.disabled = false;
-      button.textContent = "ADD TO CHRISTMAS FUND";
-
-      console.error(error);
-
-      showToast(error.message || "Unable to add money to fund.");
-
-    })
-
-    .addFund(fundEntry);
+  }
 
 }
+
 
 
 /* =========================================
