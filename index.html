@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>f
-<html>
+<html>f
 <head>
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -1227,7 +1227,8 @@ async function loadDashboard() {
    SAVE EXPENSE
 ========================================= */
 
-function saveExpense() {
+
+async function saveExpense() {
 
   const description =
     document.getElementById("description").value.trim();
@@ -1248,7 +1249,6 @@ function saveExpense() {
 
   const note =
     document.getElementById("note").value.trim();
-
 
   if (!description) {
     showToast("Please enter what was purchased.");
@@ -1275,12 +1275,10 @@ function saveExpense() {
     return;
   }
 
-
   localStorage.setItem(
     "christmasAccountsWhoBrought",
     whoBrought
   );
-
 
   const expense = {
     description: description,
@@ -1291,7 +1289,6 @@ function saveExpense() {
     note: note
   };
 
-
   const button =
     document.getElementById("saveExpenseButton");
 
@@ -1301,52 +1298,30 @@ function saveExpense() {
   document.getElementById("expenseLoading")
     .classList.add("show");
 
+  try {
 
-  google.script.run
+    await callAppsScript("addExpense", expense);
 
-    .withSuccessHandler(function(result) {
+    clearExpenseForm();
 
-      button.disabled = false;
-      button.textContent = "SAVE EXPENSE";
+    showToast("Expense saved successfully.");
 
-      document.getElementById("expenseLoading")
-        .classList.remove("show");
+    loadDashboard();
 
-      if (result && result.success) {
+  } catch (error) {
 
-        clearExpenseForm();
+    console.error(error);
+    showToast(error.message);
 
-        showToast("Expense saved successfully.");
+  } finally {
 
-        loadDashboard();
+    button.disabled = false;
+    button.textContent = "SAVE EXPENSE";
 
-        // IMPORTANT:
-        // Remain on Add Expense page.
-        // Do not navigate to another tab.
+    document.getElementById("expenseLoading")
+      .classList.remove("show");
 
-      } else {
-
-        showToast("Unable to save expense.");
-
-      }
-
-    })
-
-    .withFailureHandler(function(error) {
-
-      button.disabled = false;
-      button.textContent = "SAVE EXPENSE";
-
-      document.getElementById("expenseLoading")
-        .classList.remove("show");
-
-      console.error(error);
-
-      showToast(error.message || "Unable to save expense.");
-
-    })
-
-    .addExpense(expense);
+  }
 
 }
 
