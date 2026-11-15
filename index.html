@@ -71,6 +71,21 @@
     }
 
 </script>
+  console.log("🎄 CHRISTMAS ACCOUNTS DEBUG STARTED");
+
+window.onerror = function(message, source, line, column) {
+  console.error("JAVASCRIPT ERROR:", message);
+  console.error("FILE:", source);
+  console.error("LINE:", line);
+};
+
+window.addEventListener("unhandledrejection", function(event) {
+  console.error("PROMISE ERROR:", event.reason);
+});
+
+console.log("API URL:", APPS_SCRIPT_URL);
+console.log("PAGE:", window.location.href);
+console.log("DEBUG SETUP COMPLETED");
 </head>
 
 <style>
