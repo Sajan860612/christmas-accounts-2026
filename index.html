@@ -1,5 +1,5 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html>f
 <html>
 <head>
   <base target="_top">
@@ -1175,54 +1175,52 @@ function formatMoney(amount) {
    DASHBOARD
 ========================================= */
 
-function loadDashboard() {
 
-  google.script.run
+async function loadDashboard() {
 
-    .withSuccessHandler(function(data) {
+  try {
 
-      if (!data || !data.success) {
-        showToast("Unable to load dashboard.");
-        return;
-      }
+    const data = await callAppsScript("getDashboard");
 
-      document.getElementById("totalFund").textContent =
-        formatMoney(data.totalFund);
+    if (!data) {
+      showToast("Unable to load dashboard.");
+      return;
+    }
 
-      document.getElementById("availableFund").textContent =
-        formatMoney(data.availableFund);
+    document.getElementById("totalFund").textContent =
+      formatMoney(data.totalFund);
 
-      document.getElementById("totalExpense").textContent =
-        formatMoney(data.totalExpense);
+    document.getElementById("availableFund").textContent =
+      formatMoney(data.availableFund);
 
-      document.getElementById("personalExpense").textContent =
-        formatMoney(data.personalExpense);
-		
-		document.getElementById("pendingCount").textContent =
-  data.pendingCount;
+    document.getElementById("totalExpense").textContent =
+      formatMoney(data.totalExpense);
 
-      document.getElementById("fundPageTotal").textContent =
-        formatMoney(data.totalFund);
+    document.getElementById("personalExpense").textContent =
+      formatMoney(data.personalExpense);
 
-      document.getElementById("fundPageAvailable").textContent =
-        formatMoney(data.availableFund);
+    document.getElementById("pendingCount").textContent =
+      data.pendingCount;
 
-      document.getElementById("expenseOverview").textContent =
-        "Total expenses: " + formatMoney(data.totalExpense) +
-        " | Pending settlements: " + data.pendingCount;
+    document.getElementById("fundPageTotal").textContent =
+      formatMoney(data.totalFund);
 
-    })
+    document.getElementById("fundPageAvailable").textContent =
+      formatMoney(data.availableFund);
 
-    .withFailureHandler(function(error) {
+    document.getElementById("expenseOverview").textContent =
+      "Total expenses: " + formatMoney(data.totalExpense) +
+      " | Pending settlements: " + data.pendingCount;
 
-      console.error(error);
-      showToast(error.message || "Dashboard loading failed.");
+  } catch (error) {
 
-    })
+    console.error(error);
+    showToast(error.message);
 
-    .getDashboard();
+  }
 
 }
+
 
 
 /* =========================================
