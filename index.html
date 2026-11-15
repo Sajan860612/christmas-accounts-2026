@@ -1,1 +1,1779 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+  <title>Christmas Accounts 2026</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f1f5f2;
+      color: #263238;
+      font-size: 17px;
+    }
+
+    .app {
+      max-width: 750px;
+      margin: auto;
+      min-height: 100vh;
+      padding-bottom: 95px;
+    }
+
+    /* HEADER */
+
+    .header {
+      background: linear-gradient(135deg,#b71c1c,#d32f2f,#8e0000);
+      color: white;
+      padding: 25px 20px 30px;
+      border-radius: 0 0 25px 25px;
+    }
+
+    .header h1 {
+      font-size: 27px;
+      margin: 0;
+      font-weight: 800;
+    }
+
+    .header p {
+      font-size: 16px;
+      margin: 8px 0 0;
+      opacity: .9;
+    }
+
+    /* PAGES */
+
+    .page {
+      display: none;
+      padding: 20px 15px;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin: 5px 0 18px;
+    }
+
+    /* DASHBOARD */
+
+    .fund-card {
+      background: linear-gradient(135deg,#fff,#fff9ec);
+      border-left: 6px solid #2e7d32;
+      border-radius: 20px;
+      padding: 23px 18px;
+      box-shadow: 0 4px 14px #00000012;
+      margin-top: -5px;
+    }
+
+    .fund-label {
+      color: #68706b;
+      font-size: 15px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .fund-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .fund-total {
+      font-size: clamp(23px,6vw,34px);
+      font-weight: 900;
+      color: #b71c1c;
+      overflow-wrap: anywhere;
+    }
+
+    .available {
+      text-align: right;
+    }
+
+    .available-label {
+      font-size: 13px;
+      font-weight: 800;
+      color: #68706b;
+    }
+
+    .available-value {
+      font-size: clamp(22px,5.5vw,32px);
+      font-weight: 900;
+      color: #2e7d32;
+      overflow-wrap: anywhere;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 12px;
+      margin: 17px 0;
+    }
+
+    .summary-card {
+      background: white;
+      border-radius: 17px;
+      padding: 18px 15px;
+      box-shadow: 0 3px 12px #0000000d;
+      min-width: 0;
+    }
+
+    .summary-card.expense {
+      border-top: 5px solid #d32f2f;
+    }
+
+    .summary-card.personal {
+      border-top: 5px solid #ef6c00;
+    }
+
+    .summary-card h3 {
+      margin: 0;
+      color: #666;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .summary-card .value {
+      font-size: clamp(20px,5vw,27px);
+      font-weight: 900;
+      margin-top: 10px;
+      overflow-wrap: anywhere;
+    }
+
+    .expense .value {
+      color: #c62828;
+    }
+
+    .personal .value {
+      color: #ef6c00;
+    }
+
+    .summary-card small {
+      display: block;
+      color: #888;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    /* GENERAL CARDS */
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 13px #0000000c;
+      min-width: 0;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    /* FORMS */
+
+    .form-group {
+      margin-bottom: 19px;
+    }
+
+    label {
+      display: block;
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 9px;
+      color: #45534b;
+    }
+
+    input, textarea {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      border: 1px solid #d5ded8;
+      border-radius: 13px;
+      padding: 15px;
+      font-size: 18px;
+      font-family: inherit;
+      background: #fafcfb;
+      outline: none;
+      color: #263238;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #b71c1c;
+      background: white;
+      box-shadow: 0 0 0 3px #b71c1c12;
+    }
+
+    input[type="number"] {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    /* PAYMENT SELECTION */
+
+    .payment-options {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 10px;
+    }
+
+    .payment-option input {
+      display: none;
+    }
+
+    .payment-label {
+      display: block;
+      text-align: center;
+      padding: 16px 8px;
+      border: 2px solid #e0e5e1;
+      border-radius: 15px;
+      background: #fafafa;
+      cursor: pointer;
+      font-size: 15px;
+      margin: 0;
+    }
+
+    .payment-option input:checked + .payment-label {
+      border-color: #2e7d32;
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .payment-option.personal-choice input:checked + .payment-label {
+      border-color: #ef6c00;
+      background: #fff3e0;
+      color: #e65100;
+    }
+
+    .payment-icon {
+      font-size: 29px;
+      margin-bottom: 7px;
+    }
+
+    /* BUTTONS */
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .primary-btn {
+      width: 100%;
+      padding: 17px;
+      border: 0;
+      border-radius: 14px;
+      background: linear-gradient(135deg,#c62828,#b71c1c);
+      color: white;
+      font-size: 18px;
+      font-weight: 900;
+      margin-top: 5px;
+    }
+
+    .green-btn {
+      width: 100%;
+      padding: 16px;
+      border: 0;
+      border-radius: 13px;
+      background: #2e7d32;
+      color: white;
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    button:disabled {
+      opacity: .55;
+      cursor: wait;
+    }
+
+    /* BOTTOM NAVIGATION */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-width: 750px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: white;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  padding: 5px 2px;
+  padding-bottom: calc(5px + env(safe-area-inset-bottom));
+
+  box-shadow: 0 -3px 12px #00000015;
+
+  z-index: 100;
+  border-top: 1px solid #e5eae6;
+}
+
+
+   .nav-btn {
+  border: 0;
+  background: transparent;
+  color: #777;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  padding: 5px 1px;
+  min-width: 0;
+  width: 100%;
+
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.nav-btn .nav-icon {
+  display: block;
+  font-size: 21px;
+  margin-bottom: 3px;
+}
+
+.nav-btn.active {
+  color: #b71c1c;
+  background: #fff1f1;
+}
+
+    /* EXPENSE CARDS */
+
+    .expense-item {
+      background: white;
+      border-radius: 17px;
+      padding: 17px;
+      margin-bottom: 14px;
+      border: 1px solid #e2e8e3;
+      box-shadow: 0 3px 12px #00000009;
+      overflow-wrap: anywhere;
+    }
+
+    .expense-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .expense-description {
+      font-size: 18px;
+      font-weight: 900;
+      min-width: 0;
+    }
+
+    .expense-amount {
+      color: #c62828;
+      font-size: 19px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .expense-info {
+      color: #68736c;
+      font-size: 15px;
+      line-height: 1.8;
+      margin-top: 12px;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 900;
+      margin-top: 12px;
+    }
+
+    .status-pending {
+      background: #fff3e0;
+      color: #e65100;
+    }
+
+    .status-paid {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+/* PAYMENT SOURCE BUTTONS */
+
+.source-title {
+  font-size: 16px;
+  font-weight: 900;
+  margin-top: 18px;
+  margin-bottom: 11px;
+  color: #263238;
+}
+
+.source-buttons {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 10px;
+}
+
+.source-btn {
+  border: 2px solid #b0b0b0;
+  border-radius: 13px;
+  padding: 15px 7px;
+  font-size: 15px;
+  font-weight: 900;
+  background: #eeeeee;
+  color: #424242;
+  min-width: 0;
+  line-height: 1.4;
+  transition: .2s;
+}
+
+/* SELECTED PERSONAL MONEY */
+
+.source-btn.personal.selected {
+  background: #e65100;
+  color: #ffffff;
+  border: 3px solid #bf360c;
+  box-shadow: 0 3px 9px #e651004d;
+}
+
+/* SELECTED CHRISTMAS FUND */
+
+.source-btn.fund.selected {
+  background: #2e7d32;
+  color: #ffffff;
+  border: 3px solid #1b5e20;
+  box-shadow: 0 3px 9px #2e7d324d;
+}
+
+/* UNSELECTED BUTTONS */
+
+.source-btn:not(.selected) {
+  background: #eeeeee;
+  color: #555555;
+  border: 2px solid #bdbdbd;
+}
+
+
+    /* FUND HISTORY */
+
+    .history-item {
+      background: #f6faf6;
+      border: 1px solid #dfe8df;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 11px;
+    }
+
+    .history-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 16px;
+    }
+
+    .history-amount {
+      color: #2e7d32;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .history-reason {
+      margin-top: 9px;
+      font-size: 16px;
+    }
+
+    .history-date {
+      color: #888;
+      font-size: 14px;
+      margin-top: 7px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 30px 12px;
+      color: #888;
+      font-size: 16px;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 12px;
+      color: #777;
+      font-size: 15px;
+    }
+
+    .loading.show {
+      display: block;
+    }
+
+    /* TOAST */
+
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 15px;
+      right: 15px;
+      max-width: 700px;
+      margin: auto;
+      background: #263238;
+      color: white;
+      padding: 16px;
+      border-radius: 13px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      z-index: 500;
+      display: none;
+      box-shadow: 0 5px 20px #0003;
+    }
+
+    .toast.show {
+      display: block;
+    }
+
+    @media(max-width:380px) {
+      .header h1 {
+        font-size: 23px;
+      }
+
+      .fund-row {
+        align-items: flex-start;
+      }
+
+      .summary {
+        gap: 8px;
+      }
+
+      .summary-card {
+        padding: 14px 10px;
+      }
+
+      .nav-btn {
+        font-size: 11px;
+      }
+
+      .nav-btn .nav-icon {
+        font-size: 21px;
+      }
+    }
+  /* PENDING SETTLEMENT DASHBOARD CARD */
+
+.pending-card {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 19px 15px;
+  margin: 15px 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg,#fff3e0,#ffe0b2);
+  border: 2px solid #ef6c00;
+  box-shadow: 0 4px 12px #ef6c0025;
+}
+
+.pending-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.pending-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.pending-title {
+  font-size: 14px;
+  font-weight: 900;
+  color: #bf360c;
+}
+
+.pending-value {
+  font-size: 32px;
+  font-weight: 900;
+  color: #e65100;
+  margin-top: 4px;
+}
+
+.pending-subtitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #8d4b13;
+  margin-top: 3px;
+}
+
+.pending-card button {
+  border: 0;
+  border-radius: 10px;
+  padding: 12px;
+  background: #e65100;
+  color: white;
+  font-size: 13px;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+/* MOBILE SCREEN FIT */
+
+@media (max-width: 500px) {
+
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 100%;
+    padding-bottom: 75px;
+  }
+
+  .page {
+    padding: 15px 12px;
+  }
+
+  .header {
+    padding: 20px 15px 25px;
+  }
+
+  .header h1 {
+    font-size: 23px;
+  }
+
+  .fund-card {
+    padding: 17px 13px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .expense-item {
+    padding: 13px;
+  }
+
+}
+
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header class="header">
+    <h1>🎄 Christmas Accounts 2026</h1>
+    <p>Christmas Income & Expense Management</p>
+  </header>
+
+  <!-- HOME -->
+
+  <section class="page active" id="homePage">
+
+    <div class="section-title">📊 Dashboard Overview</div>
+
+    <div class="fund-card">
+      <div class="fund-label">🎄 Total Christmas Fund</div>
+
+      <div class="fund-row">
+        <div class="fund-total" id="totalFund">₹ 0</div>
+
+        <div class="available">
+          <div class="available-label">AVAILABLE</div>
+          <div class="available-value" id="availableFund">₹ 0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary">
+
+      <div class="summary-card expense">
+        <h3>Total Expense</h3>
+        <div class="value" id="totalExpense">₹ 0</div>
+        <small>All expenses</small>
+      </div>
+
+      <div class="summary-card personal">
+        <h3>Personal Money</h3>
+        <div class="value" id="personalExpense">₹ 0</div>
+        <small>To be settled</small>
+      </div>
+
+    </div>
+<!-- PENDING SETTLEMENTS -->
+
+<div class="pending-card">
+
+  <div class="pending-icon">⚠️</div>
+
+  <div class="pending-content">
+
+    <div class="pending-title">
+      PENDING SETTLEMENTS
+    </div>
+
+    <div class="pending-value" id="pendingCount">
+      0
+    </div>
+
+    <div class="pending-subtitle">
+      Expenses awaiting settlement
+    </div>
+
+  </div>
+
+  <button onclick="showPage('expenses')">
+    VIEW →
+  </button>
+
+</div>
+
+    <div class="card">
+      <h3>📋 Expense Overview</h3>
+      <p id="expenseOverview" style="font-size:16px;color:#68736c">
+        Loading dashboard...
+      </p>
+      <button class="green-btn" onclick="showPage('expenses')">
+        VIEW ALL EXPENSES
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>🎄 Christmas Fund</h3>
+      <p style="font-size:15px;color:#68736c;line-height:1.6">
+        Manage your Christmas Fund contributions and view the complete fund history.
+      </p>
+      <button class="green-btn" onclick="showPage('fund')">
+        MANAGE CHRISTMAS FUND
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- ADD EXPENSE -->
+
+  <section class="page" id="addPage">
+
+    <div class="section-title">➕ Add Expense</div>
+
+    <div class="card">
+
+      <div class="form-group">
+        <label for="description">What did you buy?</label>
+        <input id="description" type="text"
+          placeholder="Example: Christmas decorations"
+          autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label for="amount">Amount (₹)</label>
+        <input id="amount" type="number"
+          placeholder="Enter amount"
+          inputmode="decimal" min="0" step="0.01">
+      </div>
+
+      <div class="form-group">
+        <label for="whoBrought">Who brought it?</label>
+        <input id="whoBrought" type="text"
+          placeholder="Enter person's name"
+          autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label>Payment Source</label>
+
+        <div class="payment-options">
+
+          <div class="payment-option personal-choice">
+            <input type="radio" name="paymentSource"
+              id="personalMoney" value="Personal Money">
+            <label class="payment-label" for="personalMoney">
+              <div class="payment-icon">👤</div>
+              Personal Money
+            </label>
+          </div>
+
+          <div class="payment-option">
+            <input type="radio" name="paymentSource"
+              id="christmasFund" value="Christmas Fund">
+            <label class="payment-label" for="christmasFund">
+              <div class="payment-icon">🎄</div>
+              Christmas Fund
+            </label>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="expenseDate">Date</label>
+        <input id="expenseDate" type="date">
+      </div>
+
+      <div class="form-group">
+        <label for="note">Note (Optional)</label>
+        <textarea id="note" placeholder="Enter additional details"></textarea>
+      </div>
+
+      <button class="primary-btn" id="saveExpenseButton"
+        onclick="saveExpense()">
+        SAVE EXPENSE
+      </button>
+
+      <div class="loading" id="expenseLoading">
+        Saving expense...
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- EXPENSES -->
+
+  <section class="page" id="expensesPage">
+
+    <div class="section-title">📋 Expense Details</div>
+
+    <div id="expenseList">
+      <div class="empty">Loading expenses...</div>
+    </div>
+
+  </section>
+
+
+  <!-- FUND -->
+
+  <section class="page" id="fundPage">
+
+    <div class="section-title">🎄 Christmas Fund</div>
+
+    <div class="fund-card">
+      <div class="fund-label">Total Christmas Fund</div>
+
+      <div class="fund-row">
+        <div class="fund-total" id="fundPageTotal">₹ 0</div>
+
+        <div class="available">
+          <div class="available-label">AVAILABLE</div>
+          <div class="available-value" id="fundPageAvailable">₹ 0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+
+      <h3>➕ Add Money to Christmas Fund</h3>
+
+      <p style="font-size:15px;color:#68736c;line-height:1.6">
+        Record every new contribution to the Christmas Fund.
+      </p>
+
+      <div class="form-group">
+        <label for="fundAmount">Amount (₹)</label>
+        <input id="fundAmount" type="number"
+          placeholder="Enter amount"
+          inputmode="decimal" min="0" step="0.01">
+      </div>
+
+      <div class="form-group">
+        <label for="fundReason">Reason</label>
+        <input id="fundReason" type="text"
+          placeholder="Example: Church fund added">
+      </div>
+
+      <div class="form-group">
+        <label for="fundDate">Date</label>
+        <input id="fundDate" type="date">
+      </div>
+
+      <button class="green-btn" id="addFundButton"
+        onclick="addFund()">
+        ADD TO CHRISTMAS FUND
+      </button>
+
+    </div>
+
+    <div class="section-title" style="margin-top:25px">
+      📜 Fund History
+    </div>
+
+    <div id="fundHistoryList">
+      <div class="empty">Loading fund history...</div>
+    </div>
+
+  </section>
+
+</div>
+
+
+<!-- BOTTOM NAVIGATION -->
+
+<nav class="bottom-nav">
+
+  <button class="nav-btn active" id="navHome"
+    onclick="showPage('home')">
+    <span class="nav-icon">🏠</span>
+    Home
+  </button>
+
+  <button class="nav-btn" id="navAdd"
+    onclick="showPage('add')">
+    <span class="nav-icon">➕</span>
+    Add Expense
+  </button>
+
+  <button class="nav-btn" id="navExpenses"
+    onclick="showPage('expenses')">
+    <span class="nav-icon">📋</span>
+    Expenses
+  </button>
+
+  <button class="nav-btn" id="navFund"
+    onclick="showPage('fund')">
+    <span class="nav-icon">🎄</span>
+    Fund
+  </button>
+
+</nav>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================================
+   INITIALIZATION
+========================================= */
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  setToday();
+  loadRememberedName();
+  loadDashboard();
+
+  document.getElementById("whoBrought")
+    .addEventListener("input", function() {
+
+      const name = this.value.trim();
+
+      if (name) {
+        localStorage.setItem(
+          "christmasAccountsWhoBrought",
+          name
+        );
+      }
+
+    });
+
+});
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+function showPage(page) {
+
+  document.querySelectorAll(".page")
+    .forEach(function(item) {
+      item.classList.remove("active");
+    });
+
+  document.querySelectorAll(".nav-btn")
+    .forEach(function(item) {
+      item.classList.remove("active");
+    });
+
+  const pageMap = {
+    home: "homePage",
+    add: "addPage",
+    expenses: "expensesPage",
+    fund: "fundPage"
+  };
+
+  const navMap = {
+    home: "navHome",
+    add: "navAdd",
+    expenses: "navExpenses",
+    fund: "navFund"
+  };
+
+  document.getElementById(pageMap[page])
+    .classList.add("active");
+
+  document.getElementById(navMap[page])
+    .classList.add("active");
+
+  window.scrollTo(0, 0);
+
+  if (page === "home") {
+    loadDashboard();
+  }
+
+  if (page === "expenses") {
+    openExpenseDetails();
+  }
+
+  if (page === "fund") {
+    loadDashboard();
+    openFundHistory();
+  }
+
+}
+
+
+/* =========================================
+   DATE
+========================================= */
+
+function getToday() {
+
+  const d = new Date();
+
+  return d.getFullYear() + "-" +
+    String(d.getMonth() + 1).padStart(2, "0") + "-" +
+    String(d.getDate()).padStart(2, "0");
+
+}
+
+
+function setToday() {
+
+  document.getElementById("expenseDate").value = getToday();
+  document.getElementById("fundDate").value = getToday();
+
+}
+
+
+/* =========================================
+   REMEMBER NAME
+========================================= */
+
+function loadRememberedName() {
+
+  const name = localStorage.getItem(
+    "christmasAccountsWhoBrought"
+  );
+
+  if (name) {
+    document.getElementById("whoBrought").value = name;
+  }
+
+}
+
+
+/* =========================================
+   MONEY FORMAT
+========================================= */
+
+function formatMoney(amount) {
+
+  return "₹ " + Number(amount || 0).toLocaleString(
+    "en-IN",
+    {maximumFractionDigits: 2}
+  );
+
+}
+
+
+/* =========================================
+   DASHBOARD
+========================================= */
+
+function loadDashboard() {
+
+  google.script.run
+
+    .withSuccessHandler(function(data) {
+
+      if (!data || !data.success) {
+        showToast("Unable to load dashboard.");
+        return;
+      }
+
+      document.getElementById("totalFund").textContent =
+        formatMoney(data.totalFund);
+
+      document.getElementById("availableFund").textContent =
+        formatMoney(data.availableFund);
+
+      document.getElementById("totalExpense").textContent =
+        formatMoney(data.totalExpense);
+
+      document.getElementById("personalExpense").textContent =
+        formatMoney(data.personalExpense);
+		
+		document.getElementById("pendingCount").textContent =
+  data.pendingCount;
+
+      document.getElementById("fundPageTotal").textContent =
+        formatMoney(data.totalFund);
+
+      document.getElementById("fundPageAvailable").textContent =
+        formatMoney(data.availableFund);
+
+      document.getElementById("expenseOverview").textContent =
+        "Total expenses: " + formatMoney(data.totalExpense) +
+        " | Pending settlements: " + data.pendingCount;
+
+    })
+
+    .withFailureHandler(function(error) {
+
+      console.error(error);
+      showToast(error.message || "Dashboard loading failed.");
+
+    })
+
+    .getDashboard();
+
+}
+
+
+/* =========================================
+   SAVE EXPENSE
+========================================= */
+
+function saveExpense() {
+
+  const description =
+    document.getElementById("description").value.trim();
+
+  const amount =
+    parseFloat(document.getElementById("amount").value);
+
+  const whoBrought =
+    document.getElementById("whoBrought").value.trim();
+
+  const paymentSource =
+    document.querySelector(
+      'input[name="paymentSource"]:checked'
+    );
+
+  const date =
+    document.getElementById("expenseDate").value;
+
+  const note =
+    document.getElementById("note").value.trim();
+
+
+  if (!description) {
+    showToast("Please enter what was purchased.");
+    return;
+  }
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+    showToast("Please enter a valid amount.");
+    return;
+  }
+
+  if (!whoBrought) {
+    showToast("Please enter who brought it.");
+    return;
+  }
+
+  if (!paymentSource) {
+    showToast("Please select payment source.");
+    return;
+  }
+
+  if (!date) {
+    showToast("Please select the date.");
+    return;
+  }
+
+
+  localStorage.setItem(
+    "christmasAccountsWhoBrought",
+    whoBrought
+  );
+
+
+  const expense = {
+    description: description,
+    amount: amount,
+    whoBrought: whoBrought,
+    paymentSource: paymentSource.value,
+    date: date,
+    note: note
+  };
+
+
+  const button =
+    document.getElementById("saveExpenseButton");
+
+  button.disabled = true;
+  button.textContent = "SAVING...";
+
+  document.getElementById("expenseLoading")
+    .classList.add("show");
+
+
+  google.script.run
+
+    .withSuccessHandler(function(result) {
+
+      button.disabled = false;
+      button.textContent = "SAVE EXPENSE";
+
+      document.getElementById("expenseLoading")
+        .classList.remove("show");
+
+      if (result && result.success) {
+
+        clearExpenseForm();
+
+        showToast("Expense saved successfully.");
+
+        loadDashboard();
+
+        // IMPORTANT:
+        // Remain on Add Expense page.
+        // Do not navigate to another tab.
+
+      } else {
+
+        showToast("Unable to save expense.");
+
+      }
+
+    })
+
+    .withFailureHandler(function(error) {
+
+      button.disabled = false;
+      button.textContent = "SAVE EXPENSE";
+
+      document.getElementById("expenseLoading")
+        .classList.remove("show");
+
+      console.error(error);
+
+      showToast(error.message || "Unable to save expense.");
+
+    })
+
+    .addExpense(expense);
+
+}
+
+
+/* =========================================
+   CLEAR EXPENSE FORM
+========================================= */
+
+function clearExpenseForm() {
+
+  document.getElementById("description").value = "";
+  document.getElementById("amount").value = "";
+  document.getElementById("note").value = "";
+
+  // Keep remembered person's name.
+
+  document.querySelectorAll(
+    'input[name="paymentSource"]'
+  ).forEach(function(radio) {
+    radio.checked = false;
+  });
+
+  setToday();
+
+}
+
+
+/* =========================================
+   EXPENSE DETAILS
+========================================= */
+
+function openExpenseDetails() {
+
+  const container =
+    document.getElementById("expenseList");
+
+  container.innerHTML =
+    '<div class="empty">Loading expenses...</div>';
+
+
+  google.script.run
+
+    .withSuccessHandler(function(expenses) {
+
+      displayExpenses(expenses);
+
+    })
+
+    .withFailureHandler(function(error) {
+
+      console.error(error);
+
+      container.innerHTML =
+        '<div class="empty">Unable to load expenses.</div>';
+
+    })
+
+    .getExpenses();
+
+}
+
+
+/* =========================================
+   DISPLAY EXPENSES
+========================================= */
+
+function displayExpenses(expenses) {
+
+  const container =
+    document.getElementById("expenseList");
+
+  if (!expenses || expenses.length === 0) {
+
+    container.innerHTML =
+      '<div class="empty">No expenses entered yet.</div>';
+
+    return;
+
+  }
+
+
+  container.innerHTML = [...expenses].reverse()
+    .map(function(expense) {
+
+      const isPersonal =
+        expense.paymentSource === "Personal Money";
+
+      const statusClass =
+        expense.status === "To Be Settled"
+          ? "status-pending"
+          : "status-paid";
+
+      const id = escapeHtml(expense.id);
+
+
+      return `
+
+        <div class="expense-item" id="expense-${id}">
+
+          <div class="expense-header">
+
+            <div class="expense-description">
+              ${escapeHtml(expense.description)}
+            </div>
+
+            <div class="expense-amount">
+              ${formatMoney(expense.amount)}
+            </div>
+
+          </div>
+
+          <div class="expense-info">
+
+            👤 ${escapeHtml(expense.whoBrought)}<br>
+
+            📅 ${escapeHtml(expense.date)}<br>
+
+            ${expense.note
+              ? "📝 " + escapeHtml(expense.note)
+              : ""}
+
+          </div>
+
+          <div class="status ${statusClass}">
+            ${escapeHtml(expense.status)}
+          </div>
+
+          <div class="source-title">
+            💳 PAYMENT SOURCE
+          </div>
+
+          <div class="source-buttons">
+
+            <button
+              class="source-btn personal ${isPersonal ? "selected" : ""}"
+              onclick="changePaymentSource('${escapeJs(expense.id)}','Personal Money')">
+
+              ${isPersonal ? "✓ " : ""}
+              👤 Personal Money
+
+            </button>
+
+            <button
+              class="source-btn fund ${!isPersonal ? "selected" : ""}"
+              onclick="changePaymentSource('${escapeJs(expense.id)}','Christmas Fund')">
+
+              ${!isPersonal ? "✓ " : ""}
+              🎄 Christmas Fund
+
+            </button>
+
+          </div>
+
+          <div class="expense-actions">
+
+            <button
+              class="delete-btn"
+              onclick="deleteExpense('${escapeJs(expense.id)}')">
+
+              🗑 DELETE EXPENSE
+
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================================
+   CHANGE PAYMENT SOURCE
+========================================= */
+
+function changePaymentSource(expenseId, newSource) {
+
+  if (!expenseId) return;
+
+  showToast("Updating payment source...");
+
+
+  google.script.run
+
+    .withSuccessHandler(function(result) {
+
+      if (result && result.success) {
+
+        showToast("Payment source updated successfully.");
+
+        // Refresh dashboard totals.
+        loadDashboard();
+
+        // Fetch expenses again so both the
+        // selected source and settlement status
+        // reflect the latest backend data.
+        openExpenseDetails();
+
+      } else {
+
+        showToast("Unable to change payment source.");
+
+      }
+
+    })
+
+    .withFailureHandler(function(error) {
+
+      console.error(error);
+
+      showToast(error.message || "Unable to update payment source.");
+
+    })
+
+    .changeExpensePaymentSource(
+      expenseId,
+      newSource
+    );
+
+}
+
+
+/* =========================================
+   DELETE EXPENSE
+========================================= */
+
+function deleteExpense(expenseId) {
+
+  if (!confirm(
+    "Are you sure you want to completely delete this expense?"
+  )) {
+    return;
+  }
+
+  showToast("Deleting expense...");
+
+
+  google.script.run
+
+    .withSuccessHandler(function(result) {
+
+      if (result && result.success) {
+
+        showToast("Expense deleted successfully.");
+
+        loadDashboard();
+        openExpenseDetails();
+
+      } else {
+
+        showToast("Unable to delete expense.");
+
+      }
+
+    })
+
+    .withFailureHandler(function(error) {
+
+      console.error(error);
+
+      showToast(error.message || "Unable to delete expense.");
+
+    })
+
+    .deleteExpense(expenseId);
+
+}
+
+
+/* =========================================
+   ADD FUND
+========================================= */
+
+function addFund() {
+
+  const amount =
+    parseFloat(document.getElementById("fundAmount").value);
+
+  const reason =
+    document.getElementById("fundReason").value.trim();
+
+  const date =
+    document.getElementById("fundDate").value;
+
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+    showToast("Please enter a valid amount.");
+    return;
+  }
+
+  if (!reason) {
+    showToast("Please enter the reason.");
+    return;
+  }
+
+  if (!date) {
+    showToast("Please select the date.");
+    return;
+  }
+
+
+  const fundEntry = {
+    amount: amount,
+    reason: reason,
+    date: date
+  };
+
+
+  const button =
+    document.getElementById("addFundButton");
+
+  button.disabled = true;
+  button.textContent = "ADDING...";
+
+
+  google.script.run
+
+    .withSuccessHandler(function(result) {
+
+      button.disabled = false;
+      button.textContent = "ADD TO CHRISTMAS FUND";
+
+      if (result && result.success) {
+
+        document.getElementById("fundAmount").value = "";
+        document.getElementById("fundReason").value = "";
+
+        showToast("Money added to Christmas Fund.");
+
+        loadDashboard();
+        openFundHistory();
+
+      } else {
+
+        showToast("Unable to add money to fund.");
+
+      }
+
+    })
+
+    .withFailureHandler(function(error) {
+
+      button.disabled = false;
+      button.textContent = "ADD TO CHRISTMAS FUND";
+
+      console.error(error);
+
+      showToast(error.message || "Unable to add money to fund.");
+
+    })
+
+    .addFund(fundEntry);
+
+}
+
+
+/* =========================================
+   FUND HISTORY
+========================================= */
+
+function openFundHistory() {
+
+  const container =
+    document.getElementById("fundHistoryList");
+
+  container.innerHTML =
+    '<div class="empty">Loading fund history...</div>';
+
+
+  google.script.run
+
+    .withSuccessHandler(function(history) {
+
+      displayFundHistory(history);
+
+    })
+
+    .withFailureHandler(function(error) {
+
+      console.error(error);
+
+      container.innerHTML =
+        '<div class="empty">Unable to load fund history.</div>';
+
+    })
+
+    .getFundHistory();
+
+}
+
+
+/* =========================================
+   DISPLAY FUND HISTORY
+========================================= */
+
+function displayFundHistory(history) {
+
+  const container =
+    document.getElementById("fundHistoryList");
+
+  if (!history || history.length === 0) {
+
+    container.innerHTML =
+      '<div class="empty">No fund additions yet.</div>';
+
+    return;
+
+  }
+
+
+  container.innerHTML = [...history].reverse()
+    .map(function(entry) {
+
+      return `
+
+        <div class="history-item">
+
+          <div class="history-top">
+
+            <strong>🎄 Christmas Fund</strong>
+
+            <span class="history-amount">
+              + ${formatMoney(entry.amount)}
+            </span>
+
+          </div>
+
+          <div class="history-reason">
+            ${escapeHtml(entry.reason)}
+          </div>
+
+          <div class="history-date">
+            📅 ${escapeHtml(entry.date)}
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =========================================
+   HTML ESCAPE
+========================================= */
+
+function escapeHtml(value) {
+
+  if (value === null || value === undefined) {
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+function escapeJs(value) {
+
+  return String(value)
+    .replace(/\\/g, "\\\\")
+    .replace(/'/g, "\\'")
+    .replace(/\r/g, "\\r")
+    .replace(/\n/g, "\\n")
+    .replace(/</g, "\\x3c");
+
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+let toastTimer;
+
+function showToast(message) {
+
+  const toast = document.getElementById("toast");
+
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(function() {
+    toast.classList.remove("show");
+  }, 3000);
+
+}
+
+</script>
+
+</body>
+</html>
