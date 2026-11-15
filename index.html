@@ -9,7 +9,7 @@
   <script>
 
     const APPS_SCRIPT_URL =
-      "https://script.google.com/macros/s/AKfycbz_nuABy7Y3GFj3I4bZT4xmiLPXytaV6JQ8K70QOcdpiKtYUt77UwcMQ7v0P_Nmyx7D/exec";
+      "paste the url here";
 
     let apiRequestCounter = 0;
 
@@ -75,19 +75,15 @@
 
   const result = await response.json();
 
-  if (!result.success) {
-    throw new Error(result.message || "Request failed");
+</head>
+
+<style>
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  return result.data;
-}
-  <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
+  body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       background: #f1f5f2;
