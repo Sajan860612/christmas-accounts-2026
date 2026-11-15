@@ -1353,7 +1353,8 @@ function clearExpenseForm() {
    EXPENSE DETAILS
 ========================================= */
 
-function openExpenseDetails() {
+
+async function openExpenseDetails() {
 
   const container =
     document.getElementById("expenseList");
@@ -1361,27 +1362,26 @@ function openExpenseDetails() {
   container.innerHTML =
     '<div class="empty">Loading expenses...</div>';
 
+  try {
 
-  google.script.run
+    const expenses =
+      await callAppsScript("getExpenses");
 
-    .withSuccessHandler(function(expenses) {
+    displayExpenses(expenses);
 
-      displayExpenses(expenses);
+  } catch (error) {
 
-    })
+    console.error(error);
 
-    .withFailureHandler(function(error) {
+    container.innerHTML =
+      '<div class="empty">Unable to load expenses.</div>';
 
-      console.error(error);
+    showToast(error.message);
 
-      container.innerHTML =
-        '<div class="empty">Unable to load expenses.</div>';
-
-    })
-
-    .getExpenses();
+  }
 
 }
+
 
 
 /* =========================================
